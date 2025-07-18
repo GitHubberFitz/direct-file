@@ -335,6 +335,17 @@ Most of the project dependencies can be installed using [SDKMAN!](https://sdkman
         docker compose up -d
         ```
 
+2. If you have issues starting direct-file-db, state-api-db, and email-service-db, this can be fixed by setting the correct ownership on the data folders
+   1. This can be confirmed by checking the container logs and seeing the following errors:
+      `chown: cannot read directory '/var/lib/postgresql/data': Permission denied`
+      `chmod: changing permissions of '/var/lib/postgresql/data': Operation not permitted`
+
+        ```sh
+        chown -R 999:999 ./docker/db/postgres
+        chown -R 999:999 ./state-api/docker/db/postgres
+        chown -R 999:999 ./email-service/docker/db/postgres
+        ```
+
 #### Resources
 
 That's it!
